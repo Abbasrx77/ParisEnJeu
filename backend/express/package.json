@@ -10,7 +10,7 @@
     "start": "node --loader ts-node/esm src/app.ts\n"
   },
   "dependencies": {
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^6.3.1",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/socket.io": "^3.0.1",
@@ -37,7 +37,7 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.9.1",
     "nodemon": "^3.0.1",
-    "prisma": "^5.5.2",
+    "prisma": "^6.3.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.6.3"
   }
