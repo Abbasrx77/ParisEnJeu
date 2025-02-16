@@ -6,6 +6,7 @@ generator client {
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
   extensions = [postgis]
 }
 
@@ -56,7 +57,7 @@ model users {
   nom           String          @db.VarChar(50)
   prenom        String          @db.VarChar(50)
   email         String          @unique @db.VarChar(255)
-  password_hash String          @db.VarChar(255)
+  hash          String          @db.VarChar(255)
   salt          String          @db.VarChar(255)
   created_at    DateTime?       @default(now()) @db.Timestamp(6)
   role          user_role?      @default(user)
@@ -70,7 +71,7 @@ model ActiveToken {
   id        Int      @id @default(autoincrement()) @map("_id")
   token     String   @unique @db.VarChar(255)
   user_id   Int
-  expiresAt DateTime @db.Date
+  expiresAt DateTime @db.Timestamp(6)
   createdAt DateTime @default(now()) @db.Date
   users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }

@@ -1,49 +1,52 @@
 import {INotification} from "./notification.js";
 import {IReport} from "./reports.js";
 import {IUserBadge} from "./user_badge.js";
+import { user_role } from '@prisma/client';
 
-export enum UserRole {
-    user = 'user',
-    admin = 'admin',
-}
 
 export interface IUser {
     id: number;
     nom: string;
     prenom: string;
     email: string;
-    passwordHash: string;
+    hash: string;
     salt: string;
-    createdAt?: Date;
-    role?: UserRole;
-    notifications: INotification[];
-    reports: IReport[];
-    userBadges: IUserBadge[];
-    tokens: IActiveToken[];
+    created_at: Date;
+    role: user_role;
+    notifications?: INotification[];
+    reports?: IReport[];
+    userBadges?: IUserBadge[];
+    tokens?: IActiveToken[];
 }
+
+type UserPassword = {
+    password: string
+}
+
+export type UserDetails = IUser & UserPassword
 
 export class User implements IUser {
     id: number;
     nom: string;
     prenom: string;
     email: string;
-    passwordHash: string;
+    hash: string;
     salt: string;
-    createdAt?: Date;
-    role?: UserRole;
-    notifications: INotification[];
-    reports: IReport[];
-    userBadges: IUserBadge[];
-    tokens: IActiveToken[];
-    constructor(id: number, nom: string, prenom: string, email: string, passwordHash: string, salt: string, createdAt: Date, role: UserRole, notifications: INotification[], reports: IReport[], userBadges: IUserBadge[], tokens: IActiveToken[], )
+    created_at: Date;
+    role: user_role;
+    notifications?: INotification[];
+    reports?: IReport[];
+    userBadges?: IUserBadge[];
+    tokens?: IActiveToken[];
+    constructor(id: number, nom: string, prenom: string, email: string, hash: string, salt: string, created_at: Date, role: user_role, notifications: INotification[] = [], reports: IReport[] = [], userBadges: IUserBadge[] = [], tokens: IActiveToken[] = [] )
     {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.passwordHash = passwordHash;
+        this.hash = hash;
         this.salt = salt;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
         this.role = role;
         this.notifications = notifications;
         this.reports = reports;

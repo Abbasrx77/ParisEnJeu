@@ -4,6 +4,9 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
+import usersRouter from './routes/user.ts';
+import { notFound } from './middlewares/not-found.ts';
+import { errorHandler } from './middlewares/error-handler.js';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -16,6 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: '*' }));
 app.use(cookieParser());
 
+app.use('/', usersRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const httpServer = createServer(app);
 
